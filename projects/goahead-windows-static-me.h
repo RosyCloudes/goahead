@@ -22,7 +22,7 @@
     #define ME_COMPANY "embedthis"
 #endif
 #ifndef ME_COMPATIBLE
-    #define ME_COMPATIBLE "5.1"
+    #define ME_COMPATIBLE "5.2"
 #endif
 #ifndef ME_COMPILER_FORTIFY
     #define ME_COMPILER_FORTIFY 1
@@ -73,7 +73,7 @@
     #define ME_DEPTH 1
 #endif
 #ifndef ME_DESCRIPTION
-    #define ME_DESCRIPTION "Embedthis GoAhead Enterprise Edition"
+    #define ME_DESCRIPTION "Embedthis GoAhead"
 #endif
 #ifndef ME_GOAHEAD_ACCESS_LOG
     #define ME_GOAHEAD_ACCESS_LOG 0
@@ -265,10 +265,10 @@
     #define ME_STATIC 1
 #endif
 #ifndef ME_TITLE
-    #define ME_TITLE "Embedthis GoAhead Enterprise Edition"
+    #define ME_TITLE "Embedthis GoAhead"
 #endif
 #ifndef ME_VERSION
-    #define ME_VERSION "5.1.3"
+    #define ME_VERSION "5.2.0"
 #endif
 
 /* Prefixes */
@@ -285,46 +285,46 @@
     #define ME_BASE_PREFIX "C:/Program Files"
 #endif
 #ifndef ME_APP_PREFIX
-    #define ME_APP_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition"
+    #define ME_APP_PREFIX "C:/Program Files/Embedthis GoAhead"
 #endif
 #ifndef ME_VAPP_PREFIX
-    #define ME_VAPP_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition"
+    #define ME_VAPP_PREFIX "C:/Program Files/Embedthis GoAhead"
 #endif
 #ifndef ME_DATA_PREFIX
-    #define ME_DATA_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition"
+    #define ME_DATA_PREFIX "C:/Program Files/Embedthis GoAhead"
 #endif
 #ifndef ME_STATE_PREFIX
-    #define ME_STATE_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition"
+    #define ME_STATE_PREFIX "C:/Program Files/Embedthis GoAhead"
 #endif
 #ifndef ME_BIN_PREFIX
-    #define ME_BIN_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/bin"
+    #define ME_BIN_PREFIX "C:/Program Files/Embedthis GoAhead/bin"
 #endif
 #ifndef ME_INC_PREFIX
-    #define ME_INC_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/inc"
+    #define ME_INC_PREFIX "C:/Program Files/Embedthis GoAhead/inc"
 #endif
 #ifndef ME_LIB_PREFIX
-    #define ME_LIB_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/lib"
+    #define ME_LIB_PREFIX "C:/Program Files/Embedthis GoAhead/lib"
 #endif
 #ifndef ME_MAN_PREFIX
-    #define ME_MAN_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/man"
+    #define ME_MAN_PREFIX "C:/Program Files/Embedthis GoAhead/man"
 #endif
 #ifndef ME_ETC_PREFIX
-    #define ME_ETC_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition"
+    #define ME_ETC_PREFIX "C:/Program Files/Embedthis GoAhead"
 #endif
 #ifndef ME_WEB_PREFIX
-    #define ME_WEB_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/web"
+    #define ME_WEB_PREFIX "C:/Program Files/Embedthis GoAhead/web"
 #endif
 #ifndef ME_LOG_PREFIX
-    #define ME_LOG_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/log"
+    #define ME_LOG_PREFIX "C:/Program Files/Embedthis GoAhead/log"
 #endif
 #ifndef ME_SPOOL_PREFIX
-    #define ME_SPOOL_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/tmp"
+    #define ME_SPOOL_PREFIX "C:/Program Files/Embedthis GoAhead/tmp"
 #endif
 #ifndef ME_CACHE_PREFIX
-    #define ME_CACHE_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/cache"
+    #define ME_CACHE_PREFIX "C:/Program Files/Embedthis GoAhead/cache"
 #endif
 #ifndef ME_SRC_PREFIX
-    #define ME_SRC_PREFIX "C:/Program Files/Embedthis GoAhead Enterprise Edition/src"
+    #define ME_SRC_PREFIX "C:/Program Files/Embedthis GoAhead/src"
 #endif
 
 /* Suffixes */
@@ -363,13 +363,13 @@
     #define ME_MAJOR_VERSION 5
 #endif
 #ifndef ME_MINOR_VERSION
-    #define ME_MINOR_VERSION 1
+    #define ME_MINOR_VERSION 2
 #endif
 #ifndef ME_PATCH_VERSION
-    #define ME_PATCH_VERSION 3
+    #define ME_PATCH_VERSION 0
 #endif
 #ifndef ME_VNUM
-    #define ME_VNUM 500010003
+    #define ME_VNUM 500020000
 #endif
 
 /* Components */
@@ -382,14 +382,8 @@
 #ifndef ME_COM_LINK
     #define ME_COM_LINK 1
 #endif
-#ifndef ME_COM_MATRIXSSL
-    #define ME_COM_MATRIXSSL 0
-#endif
 #ifndef ME_COM_MBEDTLS
     #define ME_COM_MBEDTLS 1
-#endif
-#ifndef ME_COM_NANOSSL
-    #define ME_COM_NANOSSL 0
 #endif
 #ifndef ME_COM_OPENSSL
     #define ME_COM_OPENSSL 0

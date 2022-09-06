@@ -345,7 +345,7 @@ PUBLIC char *fmt(char *buf, ssize bufsize, cchar *format, ...)
 
 
 /*
-    Scure vsprintf replacement
+    Secure vsprintf replacement
  */
 PUBLIC char *sfmtv(cchar *fmt, va_list arg)
 {

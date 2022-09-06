@@ -387,6 +387,7 @@ static void uploadTest(Webs *wp)
     websWriteHeaders(wp, -1, 0);
     websWriteHeader(wp, "Content-Type", "text/plain");
     websWriteEndHeaders(wp);
+
     if (scaselessmatch(wp->method, "POST")) {
         for (s = hashFirst(wp->files); s; s = hashNext(wp->files, s)) {
             up = s->content.value.symbol;
@@ -395,6 +396,7 @@ static void uploadTest(Webs *wp)
             websWrite(wp, "CLIENT=%s\r\n", up->clientFilename);
             websWrite(wp, "TYPE=%s\r\n", up->contentType);
             websWrite(wp, "SIZE=%d\r\n", up->size);
+
             upfile = sfmt("%s/tmp/%s", websGetDocuments(), up->clientFilename);
             if (rename(up->filename, upfile) < 0) {
                 error("Cannot rename uploaded file: %s to %s, errno %d", up->filename, upfile, errno);

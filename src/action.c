@@ -43,9 +43,6 @@ static bool actionHandler(Webs *wp)
     if ((cp = strchr(actionName, '/')) != NULL) {
         *cp = '\0';
     }
-    /*
-        Lookup the C action function first and then try tcl (no javascript support yet).
-     */
     sp = hashLookup(actionTable, actionName);
     if (sp == NULL) {
         websError(wp, HTTP_CODE_NOT_FOUND, "Action %s is not defined", actionName);
@@ -80,7 +77,7 @@ PUBLIC int websDefineAction(cchar *name, void *fn)
 }
 
 
-static void closeAction()
+static void closeAction(void)
 {
     if (actionTable != -1) {
         hashFree(actionTable);

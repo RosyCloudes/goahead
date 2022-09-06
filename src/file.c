@@ -129,7 +129,6 @@ static void fileWriteEvent(Webs *wp)
             websError(wp, HTTP_CODE_INTERNAL_SERVER_ERROR, "Cannot read file content");
             return;
         }
-        wp->txRemaining -= len;
         if ((wrote = websWriteSocket(wp, buf, len)) < 0) {
             err = socketGetError(wp->sid);
             if (err == EWOULDBLOCK || err == EAGAIN) {
@@ -140,9 +139,9 @@ static void fileWriteEvent(Webs *wp)
             }
             break;
         }
+        wp->txRemaining -= wrote;
         if (wrote != len) {
             websPageSeek(wp, - (len - wrote), SEEK_CUR);
-            wp->txRemaining += (len - wrote);
             break;
         }
     }
@@ -176,7 +175,7 @@ PUBLIC bool websProcessPutData(Webs *wp)
 #endif
 
 
-static void fileClose()
+static void fileClose(void)
 {
     wfree(websIndex);
     websIndex = NULL;

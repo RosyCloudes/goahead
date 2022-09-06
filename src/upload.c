@@ -19,6 +19,8 @@
 #define UPLOAD_CONTENT_DATA      4   /* Content encoded data */
 #define UPLOAD_CONTENT_END       5   /* End of multipart message */
 
+#define MAX_BOUNDARY             512
+
 static char *uploadDir;
 
 /*********************************** Forwards *********************************/
@@ -53,7 +55,7 @@ static void initUpload(Webs *wp)
             wp->boundary = sfmt("--%s", boundary);
             wp->boundaryLen = strlen(wp->boundary);
         }
-        if (wp->boundaryLen == 0 || *wp->boundary == '\0') {
+        if (wp->boundaryLen == 0 || *wp->boundary == '\0' || slen(wp->boundary) > MAX_BOUNDARY) {
             websError(wp, HTTP_CODE_BAD_REQUEST, "Bad boundary");
         } else {
             websSetVar(wp, "UPLOAD_DIR", uploadDir);
@@ -125,7 +127,6 @@ PUBLIC bool websProcessUploadData(Webs *wp)
             *nextTok++ = '\0';
             nbytes = nextTok - line;
             assert(nbytes > 0);
-            websConsumeInput(wp, nbytes);
             strim(line, "\r", WEBS_TRIM_END);
         }
         switch (wp->uploadState) {
@@ -135,10 +136,12 @@ PUBLIC bool websProcessUploadData(Webs *wp)
 
         case UPLOAD_BOUNDARY:
             processContentBoundary(wp, line);
+            websConsumeInput(wp, nbytes);
             break;
 
         case UPLOAD_CONTENT_HEADER:
             processUploadHeader(wp, line);
+            websConsumeInput(wp, nbytes);
             break;
 
         case UPLOAD_CONTENT_DATA:
@@ -207,6 +210,7 @@ static void processUploadHeader(Webs *wp, char *line)
         wfree(wp->uploadVar);
         wfree(wp->clientFilename);
         wp->uploadVar = wp->clientFilename = 0;
+
         while (key && stok(key, ";\r\n", &nextPair)) {
 
             key = strim(key, " ", WEBS_TRIM_BOTH);
@@ -320,6 +324,7 @@ static bool processContentData(Webs *wp)
 {
     WebsUpload  *file;
     WebsBuf     *content;
+    WebsKey     *sp;
     ssize       size, nbytes, len;
     char        *data, *bp;
 
@@ -336,15 +341,18 @@ static bool processContentData(Webs *wp)
         if (wp->clientFilename) {
             /*
                 No signature found yet. probably more data to come. Must handle split boundaries.
+                Note: the trailing boundary has a CRLF prefix (2).
              */
             data = content->servp;
-            nbytes = ((int) (content->endp - data)) - (wp->boundaryLen - 1);
-            if (writeToFile(wp, content->servp, nbytes) < 0) {
-                /* Proceed to handle error */
-                return 1;
+            nbytes = ((int) (content->endp - data)) - (wp->boundaryLen - 1 + 2);
+            if (nbytes > 0) {
+                if (writeToFile(wp, content->servp, nbytes) < 0) {
+                    /* Proceed to handle error */
+                    return 1;
+                }
+                websConsumeInput(wp, nbytes);
             }
-            websConsumeInput(wp, nbytes);
-            /* Get more data */
+            //  Get more data
             return 0;
         }
     }
@@ -353,7 +361,7 @@ static bool processContentData(Webs *wp)
 
     if (nbytes > 0) {
         /*
-            This is the CRLF before the boundary
+            This is the final CRLF before the boundary
          */
         len = nbytes;
         if (len >= 2 && data[len - 2] == '\r' && data[len - 1] == '\n') {
@@ -363,10 +371,12 @@ static bool processContentData(Webs *wp)
             /*
                 Write the last bit of file data and add to the list of files and define environment variables
              */
-            if (writeToFile(wp, data, len) < 0) {
-                /* Proceed to handle error */
-                websConsumeInput(wp, nbytes);
-                return 1;
+            if (len > 0) {
+                if (writeToFile(wp, data, len) < 0) {
+                    /* Proceed to handle error */
+                    websConsumeInput(wp, nbytes);
+                    return 1;
+                }
             }
             hashEnter(wp->files, wp->uploadVar, valueSymbol(file), 0);
             defineUploadVars(wp);
@@ -380,7 +390,9 @@ static bool processContentData(Webs *wp)
             trace(5, "uploadFilter: form[%s] = %s", wp->uploadVar, data);
             websDecodeUrl(wp->uploadVar, wp->uploadVar, -1);
             websDecodeUrl(data, data, -1);
-            websSetVar(wp, wp->uploadVar, data);
+            sp = websSetVar(wp, wp->uploadVar, data);
+            //  Flag as untrusted so CGI will prefix
+            sp->arg = 1;
         }
         websConsumeInput(wp, nbytes);
     }
@@ -411,10 +423,10 @@ static char *getBoundary(Webs *wp, char *buf, ssize bufLen)
     assert(buf);
 
     first = *wp->boundary;
-    cp = buf;
     if (bufLen < wp->boundaryLen) {
         return 0;
     }
+    cp = buf;
     endp = cp + (bufLen - wp->boundaryLen) + 1;
     while (cp < endp) {
         cp = (char *) memchr(cp, first, endp - cp);

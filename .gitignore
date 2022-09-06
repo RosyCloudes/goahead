@@ -12,3 +12,4 @@ test/web/tmp/a.dat
 /start.me
 /projects/goahead-core*
 .local.mk
+.version

@@ -55,8 +55,12 @@ Me.load({
                     to:         '${abin}/',
 
                 }, {
-                    from:       '${BIN}/self.*',
+                    from:       '${BIN}/self.crt',
                     to:         '${etc}/',
+
+                }, {
+                    from:       '${BIN}/self.key',
+                    to:         '${etc}',
 
                 }, {
                     from: [
@@ -115,7 +119,7 @@ Me.load({
                                 'installs',
                                 'test'
                     ],
-                    exclude:    /\.old$|\.tmp$|xcuserdata|xcworkspace|project.guid|-mine/,
+                    exclude:    /\.old$|\.tmp$|xcuserdata|xcshared|xcworkspace|project.guid|-mine/,
                     to:         '${src}/',
                     flatten:    false,
                 },

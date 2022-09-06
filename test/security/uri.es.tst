@@ -19,14 +19,12 @@ function get(uri): String {
     return response.toString()
 }
 
-/*
 let response
 response = get('index.html')
-ttrue(response.toString().contains('Not Found'))
+ttrue(response.toString().contains('Bad Request'))
 
 response = get('/\x01index.html')
 ttrue(response.toString().contains('Bad Request'))
-*/
 
 response = get('\\index.html')
-ttrue(response.toString() == '')
+ttrue(response.toString().contains('Bad Request'))

@@ -38,6 +38,7 @@ static WebsHash roles = -1;
 static char *masterSecret;
 static int autoLogin = ME_GOAHEAD_AUTO_LOGIN;
 static WebsVerify verifyPassword = websVerifyPasswordFromFile;
+static bool pmatch(cchar *s1, cchar *s2);
 
 #ifndef ME_GOAHEAD_NONCE_DURATION
     #define ME_GOAHEAD_NONCE_DURATION 60
@@ -602,9 +603,9 @@ PUBLIC bool websVerifyPasswordFromFile(Webs *wp)
         wp->encoded = 1;
     }
     if (wp->digest) {
-        success = smatch(wp->password, wp->digest);
+        success = pmatch(wp->password, wp->digest);
     } else {
-        success = smatch(wp->password, wp->user->password);
+        success = pmatch(wp->password, wp->user->password);
     }
     if (success) {
         trace(5, "User \"%s\" authenticated", wp->username);
@@ -612,6 +613,26 @@ PUBLIC bool websVerifyPasswordFromFile(Webs *wp)
         trace(5, "Password for user \"%s\" failed to authenticate", wp->username);
     }
     return success;
+}
+
+
+/*
+    Constant time password match
+*/
+static bool pmatch(cchar *s1, cchar *s2)
+{
+    ssize   i, len1, len2;
+    uchar   c;
+
+    len1 = slen(s1);
+    len2 = slen(s2);
+    if (len1 != len2) {
+        return 0;
+    }
+    for (i = 0, c = 0; i < len1; i++) {
+        c |= (uchar) s1[i] ^ (uchar) s2[i];
+    }
+    return !c;
 }
 
 

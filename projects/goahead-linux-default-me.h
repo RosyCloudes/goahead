@@ -22,19 +22,19 @@
     #define ME_COMPANY "embedthis"
 #endif
 #ifndef ME_COMPATIBLE
-    #define ME_COMPATIBLE "5.1"
+    #define ME_COMPATIBLE "5.2"
 #endif
 #ifndef ME_COMPILER_FORTIFY
     #define ME_COMPILER_FORTIFY 1
 #endif
 #ifndef ME_COMPILER_HAS_ATOMIC
-    #define ME_COMPILER_HAS_ATOMIC 0
+    #define ME_COMPILER_HAS_ATOMIC 1
 #endif
 #ifndef ME_COMPILER_HAS_ATOMIC64
-    #define ME_COMPILER_HAS_ATOMIC64 0
+    #define ME_COMPILER_HAS_ATOMIC64 1
 #endif
 #ifndef ME_COMPILER_HAS_DOUBLE_BRACES
-    #define ME_COMPILER_HAS_DOUBLE_BRACES 0
+    #define ME_COMPILER_HAS_DOUBLE_BRACES 1
 #endif
 #ifndef ME_COMPILER_HAS_DYN_LOAD
     #define ME_COMPILER_HAS_DYN_LOAD 1
@@ -64,13 +64,13 @@
     #define ME_COMPILER_HAS_SYNC64 1
 #endif
 #ifndef ME_COMPILER_HAS_SYNC_CAS
-    #define ME_COMPILER_HAS_SYNC_CAS 0
+    #define ME_COMPILER_HAS_SYNC_CAS 1
 #endif
 #ifndef ME_COMPILER_HAS_UNNAMED_UNIONS
     #define ME_COMPILER_HAS_UNNAMED_UNIONS 1
 #endif
 #ifndef ME_COMPILER_WARN64TO32
-    #define ME_COMPILER_WARN64TO32 0
+    #define ME_COMPILER_WARN64TO32 1
 #endif
 #ifndef ME_COMPILER_WARN_UNUSED
     #define ME_COMPILER_WARN_UNUSED 1
@@ -85,7 +85,7 @@
     #define ME_DEPTH 1
 #endif
 #ifndef ME_DESCRIPTION
-    #define ME_DESCRIPTION "Embedthis GoAhead Enterprise Edition"
+    #define ME_DESCRIPTION "Embedthis GoAhead"
 #endif
 #ifndef ME_GOAHEAD_ACCESS_LOG
     #define ME_GOAHEAD_ACCESS_LOG 0
@@ -274,10 +274,10 @@
     #define ME_ROM_TIME 1505449519432
 #endif
 #ifndef ME_TITLE
-    #define ME_TITLE "Embedthis GoAhead Enterprise Edition"
+    #define ME_TITLE "Embedthis GoAhead"
 #endif
 #ifndef ME_VERSION
-    #define ME_VERSION "5.1.3"
+    #define ME_VERSION "5.2.0"
 #endif
 
 /* Prefixes */
@@ -297,7 +297,7 @@
     #define ME_APP_PREFIX "/usr/local/lib/goahead"
 #endif
 #ifndef ME_VAPP_PREFIX
-    #define ME_VAPP_PREFIX "/usr/local/lib/goahead/5.1.3"
+    #define ME_VAPP_PREFIX "/usr/local/lib/goahead/5.2.0"
 #endif
 #ifndef ME_BIN_PREFIX
     #define ME_BIN_PREFIX "/usr/local/bin"
@@ -330,7 +330,7 @@
     #define ME_CACHE_PREFIX "/var/spool/goahead/cache"
 #endif
 #ifndef ME_SRC_PREFIX
-    #define ME_SRC_PREFIX "goahead-5.1.3"
+    #define ME_SRC_PREFIX "goahead-5.2.0"
 #endif
 
 /* Suffixes */
@@ -369,13 +369,13 @@
     #define ME_MAJOR_VERSION 5
 #endif
 #ifndef ME_MINOR_VERSION
-    #define ME_MINOR_VERSION 1
+    #define ME_MINOR_VERSION 2
 #endif
 #ifndef ME_PATCH_VERSION
-    #define ME_PATCH_VERSION 3
+    #define ME_PATCH_VERSION 0
 #endif
 #ifndef ME_VNUM
-    #define ME_VNUM 500010003
+    #define ME_VNUM 500020000
 #endif
 
 /* Components */
@@ -385,14 +385,8 @@
 #ifndef ME_COM_LIB
     #define ME_COM_LIB 1
 #endif
-#ifndef ME_COM_MATRIXSSL
-    #define ME_COM_MATRIXSSL 0
-#endif
 #ifndef ME_COM_MBEDTLS
     #define ME_COM_MBEDTLS 1
-#endif
-#ifndef ME_COM_NANOSSL
-    #define ME_COM_NANOSSL 0
 #endif
 #ifndef ME_COM_OPENSSL
     #define ME_COM_OPENSSL 0

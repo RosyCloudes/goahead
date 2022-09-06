@@ -1,5 +1,5 @@
 #
-#   Makefile -- Build It Makefile to build Embedthis GoAhead for macosx on x86_64
+#   Makefile -- Makefile to build Embedthis GoAhead for macosx on x86_64
 #
 
 CFLAGS      := -g -w

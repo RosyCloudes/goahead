@@ -1,9 +1,9 @@
 #
-#   goahead-windows-openssl_10.nmake -- Makefile to build Embedthis GoAhead Enterprise Edition for windows
+#   goahead-windows-openssl_10.nmake -- Makefile to build Embedthis GoAhead for windows
 #
 
 NAME                  = goahead
-VERSION               = 5.1.3
+VERSION               = 5.2.0
 
 OS                    = windows
 PA                    = $(PROCESSOR_ARCHITECTURE)
@@ -30,6 +30,9 @@ BUILD                 = build\$(CONFIG)
 
 LBIN                  = $(BUILD)\bin
 
+#
+# Components
+#
 !IF "$(ME_COM_COMPILER)" == ""
 ME_COM_COMPILER       = 1
 !ENDIF
@@ -39,14 +42,8 @@ ME_COM_LIB            = 1
 !IF "$(ME_COM_LINK)" == ""
 ME_COM_LINK           = 1
 !ENDIF
-!IF "$(ME_COM_MATRIXSSL)" == ""
-ME_COM_MATRIXSSL      = 0
-!ENDIF
 !IF "$(ME_COM_MBEDTLS)" == ""
 ME_COM_MBEDTLS        = 0
-!ENDIF
-!IF "$(ME_COM_NANOSSL)" == ""
-ME_COM_NANOSSL        = 0
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == ""
 ME_COM_OPENSSL        = 1
@@ -89,12 +86,283 @@ ME_COM_COMPILER       = 1
 !ENDIF
 
 
+#
+# Settings
+#
+!IF "$(ME_AUTHOR)" == ""
+ME_AUTHOR             = \"Embedthis Software\"
+!ENDIF
+!IF "$(ME_CERTS_BITS)" == ""
+ME_CERTS_BITS         = 2048
+!ENDIF
+!IF "$(ME_CERTS_DAYS)" == ""
+ME_CERTS_DAYS         = 3650
+!ENDIF
+!IF "$(ME_CERTS_GENDH)" == ""
+ME_CERTS_GENDH        = 1
+!ENDIF
+!IF "$(ME_COMPANY)" == ""
+ME_COMPANY            = \"embedthis\"
+!ENDIF
+!IF "$(ME_COMPATIBLE)" == ""
+ME_COMPATIBLE         = \"5.2\"
+!ENDIF
+!IF "$(ME_COMPILER_FORTIFY)" == ""
+ME_COMPILER_FORTIFY   = 1
+!ENDIF
+!IF "$(ME_COMPILER_HAS_ATOMIC)" == ""
+ME_COMPILER_HAS_ATOMIC = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_ATOMIC64)" == ""
+ME_COMPILER_HAS_ATOMIC64 = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_DYN_LOAD)" == ""
+ME_COMPILER_HAS_DYN_LOAD = 1
+!ENDIF
+!IF "$(ME_COMPILER_HAS_LIB_EDIT)" == ""
+ME_COMPILER_HAS_LIB_EDIT = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_LIB_RT)" == ""
+ME_COMPILER_HAS_LIB_RT = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_MMU)" == ""
+ME_COMPILER_HAS_MMU   = 1
+!ENDIF
+!IF "$(ME_COMPILER_HAS_PAM)" == ""
+ME_COMPILER_HAS_PAM   = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_STACK_PROTECTOR)" == ""
+ME_COMPILER_HAS_STACK_PROTECTOR = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_SYNC)" == ""
+ME_COMPILER_HAS_SYNC  = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_SYNC64)" == ""
+ME_COMPILER_HAS_SYNC64 = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_SYNC_CAS)" == ""
+ME_COMPILER_HAS_SYNC_CAS = 0
+!ENDIF
+!IF "$(ME_COMPILER_HAS_UNNAMED_UNIONS)" == ""
+ME_COMPILER_HAS_UNNAMED_UNIONS = 1
+!ENDIF
+!IF "$(ME_CONFIGURE)" == ""
+ME_CONFIGURE          = \"me -d -q -platform windows-x64-openssl_10 -configure . --set openssl.version=1.0 --with openssl -gen nmake\"
+!ENDIF
+!IF "$(ME_CONFIGURED)" == ""
+ME_CONFIGURED         = 1
+!ENDIF
+!IF "$(ME_DEBUG)" == ""
+ME_DEBUG              = 1
+!ENDIF
+!IF "$(ME_DEPRECATED_WARNINGS)" == ""
+ME_DEPRECATED_WARNINGS = 0
+!ENDIF
+!IF "$(ME_DEPTH)" == ""
+ME_DEPTH              = 1
+!ENDIF
+!IF "$(ME_DESCRIPTION)" == ""
+ME_DESCRIPTION        = \"Embedthis GoAhead\"
+!ENDIF
+!IF "$(ME_GOAHEAD_ACCESS_LOG)" == ""
+ME_GOAHEAD_ACCESS_LOG = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_AUTH)" == ""
+ME_GOAHEAD_AUTH       = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_AUTH_STORE)" == ""
+ME_GOAHEAD_AUTH_STORE = \"file\"
+!ENDIF
+!IF "$(ME_GOAHEAD_AUTO_LOGIN)" == ""
+ME_GOAHEAD_AUTO_LOGIN = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_CGI)" == ""
+ME_GOAHEAD_CGI        = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_CGI_VAR_PREFIX)" == ""
+ME_GOAHEAD_CGI_VAR_PREFIX = \"CGI_\"
+!ENDIF
+!IF "$(ME_GOAHEAD_CLIENT_CACHE)" == ""
+ME_GOAHEAD_CLIENT_CACHE = \"css,gif,ico,jpg,js,png\"
+!ENDIF
+!IF "$(ME_GOAHEAD_CLIENT_CACHE_LIFESPAN)" == ""
+ME_GOAHEAD_CLIENT_CACHE_LIFESPAN = 86400
+!ENDIF
+!IF "$(ME_GOAHEAD_DIGEST)" == ""
+ME_GOAHEAD_DIGEST     = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_DOCUMENTS)" == ""
+ME_GOAHEAD_DOCUMENTS  = \"web\"
+!ENDIF
+!IF "$(ME_GOAHEAD_JAVASCRIPT)" == ""
+ME_GOAHEAD_JAVASCRIPT = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_LEGACY)" == ""
+ME_GOAHEAD_LEGACY     = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_BUFFER)" == ""
+ME_GOAHEAD_LIMIT_BUFFER = 1024
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_CGI_ARGS)" == ""
+ME_GOAHEAD_LIMIT_CGI_ARGS = 4096
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_FILENAME)" == ""
+ME_GOAHEAD_LIMIT_FILENAME = 256
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_FILES)" == ""
+ME_GOAHEAD_LIMIT_FILES = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_HEADER)" == ""
+ME_GOAHEAD_LIMIT_HEADER = 2048
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_HEADERS)" == ""
+ME_GOAHEAD_LIMIT_HEADERS = 4096
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_NUM_HEADERS)" == ""
+ME_GOAHEAD_LIMIT_NUM_HEADERS = 64
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_PARSE_TIMEOUT)" == ""
+ME_GOAHEAD_LIMIT_PARSE_TIMEOUT = 5
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_PASSWORD)" == ""
+ME_GOAHEAD_LIMIT_PASSWORD = 32
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_POST)" == ""
+ME_GOAHEAD_LIMIT_POST = 16384
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_PUT)" == ""
+ME_GOAHEAD_LIMIT_PUT  = 204800000
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_SESSION_COUNT)" == ""
+ME_GOAHEAD_LIMIT_SESSION_COUNT = 512
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_SESSION_LIFE)" == ""
+ME_GOAHEAD_LIMIT_SESSION_LIFE = 1800
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_STRING)" == ""
+ME_GOAHEAD_LIMIT_STRING = 256
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_TIMEOUT)" == ""
+ME_GOAHEAD_LIMIT_TIMEOUT = 60
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_UPLOAD)" == ""
+ME_GOAHEAD_LIMIT_UPLOAD = 204800000
+!ENDIF
+!IF "$(ME_GOAHEAD_LIMIT_URI)" == ""
+ME_GOAHEAD_LIMIT_URI  = 2048
+!ENDIF
+!IF "$(ME_GOAHEAD_LISTEN)" == ""
+ME_GOAHEAD_LISTEN     = \"http://*:80,https://*:443\"
+!ENDIF
+!IF "$(ME_GOAHEAD_LOGFILE)" == ""
+ME_GOAHEAD_LOGFILE    = \"stderr:0\"
+!ENDIF
+!IF "$(ME_GOAHEAD_LOGGING)" == ""
+ME_GOAHEAD_LOGGING    = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_PUT_DIR)" == ""
+ME_GOAHEAD_PUT_DIR    = \".\"
+!ENDIF
+!IF "$(ME_GOAHEAD_REALM)" == ""
+ME_GOAHEAD_REALM      = \"example.com\"
+!ENDIF
+!IF "$(ME_GOAHEAD_REPLACE_MALLOC)" == ""
+ME_GOAHEAD_REPLACE_MALLOC = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_AUTHORITY)" == ""
+ME_GOAHEAD_SSL_AUTHORITY = \"\"
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_CACHE)" == ""
+ME_GOAHEAD_SSL_CACHE  = 512
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_CERTIFICATE)" == ""
+ME_GOAHEAD_SSL_CERTIFICATE = \"self.crt\"
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_CIPHERS)" == ""
+ME_GOAHEAD_SSL_CIPHERS = \"\"
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_HANDSHAKES)" == ""
+ME_GOAHEAD_SSL_HANDSHAKES = 3
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_KEY)" == ""
+ME_GOAHEAD_SSL_KEY    = \"self.key\"
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_LOG_LEVEL)" == ""
+ME_GOAHEAD_SSL_LOG_LEVEL = 5
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_REVOKE)" == ""
+ME_GOAHEAD_SSL_REVOKE = \"\"
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_TICKET)" == ""
+ME_GOAHEAD_SSL_TICKET = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_TIMEOUT)" == ""
+ME_GOAHEAD_SSL_TIMEOUT = 86400
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_VERIFY_ISSUER)" == ""
+ME_GOAHEAD_SSL_VERIFY_ISSUER = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_SSL_VERIFY_PEER)" == ""
+ME_GOAHEAD_SSL_VERIFY_PEER = 0
+!ENDIF
+!IF "$(ME_GOAHEAD_STEALTH)" == ""
+ME_GOAHEAD_STEALTH    = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_TRACING)" == ""
+ME_GOAHEAD_TRACING    = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_UPLOAD)" == ""
+ME_GOAHEAD_UPLOAD     = 1
+!ENDIF
+!IF "$(ME_GOAHEAD_UPLOAD_DIR)" == ""
+ME_GOAHEAD_UPLOAD_DIR = \"tmp\"
+!ENDIF
+!IF "$(ME_GOAHEAD_XFRAME_HEADER)" == ""
+ME_GOAHEAD_XFRAME_HEADER = \"SAMEORIGIN\"
+!ENDIF
+!IF "$(ME_INTEGRATE)" == ""
+ME_INTEGRATE          = 1
+!ENDIF
+!IF "$(ME_MANIFEST)" == ""
+ME_MANIFEST           = \"installs/manifest.me\"
+!ENDIF
+!IF "$(ME_MBEDTLS_COMPACT)" == ""
+ME_MBEDTLS_COMPACT    = 1
+!ENDIF
+!IF "$(ME_NAME)" == ""
+ME_NAME               = \"goahead\"
+!ENDIF
+!IF "$(ME_OPENSSL_VERSION)" == ""
+ME_OPENSSL_VERSION    = \"1.0\"
+!ENDIF
+!IF "$(ME_PARTS)" == ""
+ME_PARTS              = \"undefined\"
+!ENDIF
+!IF "$(ME_PREFIXES)" == ""
+ME_PREFIXES           = \"install-prefixes\"
+!ENDIF
+!IF "$(ME_PROFILE)" == ""
+ME_PROFILE            = \"undefined\"
+!ENDIF
+!IF "$(ME_ROM)" == ""
+ME_ROM                = 0
+!ENDIF
+!IF "$(ME_ROM_TIME)" == ""
+ME_ROM_TIME           = 1505449519432
+!ENDIF
+!IF "$(ME_TITLE)" == ""
+ME_TITLE              = \"Embedthis GoAhead\"
+!ENDIF
+!IF "$(ME_VERSION)" == ""
+ME_VERSION            = \"5.2.0\"
+!ENDIF
+
 CC                    = cl
 LD                    = link
 AR                    = lib
 RC                    = rc
 CFLAGS                = -nologo -GR- -W3 -Zi -Od -MDd
-DFLAGS                = -DME_DEBUG=1 -DME_COM_COMPILER=$(ME_COM_COMPILER) -DME_COM_LIB=$(ME_COM_LIB) -DME_COM_LINK=$(ME_COM_LINK) -DME_COM_MATRIXSSL=$(ME_COM_MATRIXSSL) -DME_COM_MBEDTLS=$(ME_COM_MBEDTLS) -DME_COM_NANOSSL=$(ME_COM_NANOSSL) -DME_COM_OPENSSL=$(ME_COM_OPENSSL) -DME_COM_OSDEP=$(ME_COM_OSDEP) -DME_COM_RC=$(ME_COM_RC) -DME_COM_SSL=$(ME_COM_SSL) -DME_COM_VXWORKS=$(ME_COM_VXWORKS) 
+DFLAGS                = -DME_DEBUG=1 -DME_COM_COMPILER=$(ME_COM_COMPILER) -DME_COM_LIB=$(ME_COM_LIB) -DME_COM_LINK=$(ME_COM_LINK) -DME_COM_MBEDTLS=$(ME_COM_MBEDTLS) -DME_COM_OPENSSL=$(ME_COM_OPENSSL) -DME_COM_OSDEP=$(ME_COM_OSDEP) -DME_COM_RC=$(ME_COM_RC) -DME_COM_SSL=$(ME_COM_SSL) -DME_COM_VXWORKS=$(ME_COM_VXWORKS) -DME_CERTS_BITS=$(ME_CERTS_BITS) -DME_CERTS_DAYS=$(ME_CERTS_DAYS) -DME_CERTS_GENDH=$(ME_CERTS_GENDH) -DME_GOAHEAD_ACCESSLOG=$(ME_GOAHEAD_ACCESSLOG) -DME_GOAHEAD_AUTH=$(ME_GOAHEAD_AUTH) -DME_GOAHEAD_AUTHSTORE=$(ME_GOAHEAD_AUTHSTORE) -DME_GOAHEAD_AUTOLOGIN=$(ME_GOAHEAD_AUTOLOGIN) -DME_GOAHEAD_CGI=$(ME_GOAHEAD_CGI) -DME_GOAHEAD_CGIVARPREFIX=$(ME_GOAHEAD_CGIVARPREFIX) -DME_GOAHEAD_CLIENTCACHE=$(ME_GOAHEAD_CLIENTCACHE) -DME_GOAHEAD_CLIENTCACHELIFESPAN=$(ME_GOAHEAD_CLIENTCACHELIFESPAN) -DME_GOAHEAD_DIGEST=$(ME_GOAHEAD_DIGEST) -DME_GOAHEAD_DOCUMENTS=$(ME_GOAHEAD_DOCUMENTS) -DME_GOAHEAD_JAVASCRIPT=$(ME_GOAHEAD_JAVASCRIPT) -DME_GOAHEAD_LEGACY=$(ME_GOAHEAD_LEGACY) -DME_GOAHEAD_LIMITBUFFER=$(ME_GOAHEAD_LIMITBUFFER) -DME_GOAHEAD_LIMITCGIARGS=$(ME_GOAHEAD_LIMITCGIARGS) -DME_GOAHEAD_LIMITFILENAME=$(ME_GOAHEAD_LIMITFILENAME) -DME_GOAHEAD_LIMITFILES=$(ME_GOAHEAD_LIMITFILES) -DME_GOAHEAD_LIMITHEADER=$(ME_GOAHEAD_LIMITHEADER) -DME_GOAHEAD_LIMITHEADERS=$(ME_GOAHEAD_LIMITHEADERS) -DME_GOAHEAD_LIMITNUMHEADERS=$(ME_GOAHEAD_LIMITNUMHEADERS) -DME_GOAHEAD_LIMITPARSETIMEOUT=$(ME_GOAHEAD_LIMITPARSETIMEOUT) -DME_GOAHEAD_LIMITPASSWORD=$(ME_GOAHEAD_LIMITPASSWORD) -DME_GOAHEAD_LIMITPOST=$(ME_GOAHEAD_LIMITPOST) -DME_GOAHEAD_LIMITPUT=$(ME_GOAHEAD_LIMITPUT) -DME_GOAHEAD_LIMITSESSIONCOUNT=$(ME_GOAHEAD_LIMITSESSIONCOUNT) -DME_GOAHEAD_LIMITSESSIONLIFE=$(ME_GOAHEAD_LIMITSESSIONLIFE) -DME_GOAHEAD_LIMITSTRING=$(ME_GOAHEAD_LIMITSTRING) -DME_GOAHEAD_LIMITTIMEOUT=$(ME_GOAHEAD_LIMITTIMEOUT) -DME_GOAHEAD_LIMITUPLOAD=$(ME_GOAHEAD_LIMITUPLOAD) -DME_GOAHEAD_LIMITURI=$(ME_GOAHEAD_LIMITURI) -DME_GOAHEAD_LISTEN=$(ME_GOAHEAD_LISTEN) -DME_GOAHEAD_LOGFILE=$(ME_GOAHEAD_LOGFILE) -DME_GOAHEAD_LOGGING=$(ME_GOAHEAD_LOGGING) -DME_GOAHEAD_PUTDIR=$(ME_GOAHEAD_PUTDIR) -DME_GOAHEAD_REALM=$(ME_GOAHEAD_REALM) -DME_GOAHEAD_REPLACEMALLOC=$(ME_GOAHEAD_REPLACEMALLOC) -DME_GOAHEAD_SSL=$(ME_GOAHEAD_SSL) -DME_GOAHEAD_STEALTH=$(ME_GOAHEAD_STEALTH) -DME_GOAHEAD_TRACING=$(ME_GOAHEAD_TRACING) -DME_GOAHEAD_UPLOAD=$(ME_GOAHEAD_UPLOAD) -DME_GOAHEAD_UPLOADDIR=$(ME_GOAHEAD_UPLOADDIR) -DME_GOAHEAD_XFRAMEHEADER=$(ME_GOAHEAD_XFRAMEHEADER) -DME_MBEDTLS_COMPACT=$(ME_MBEDTLS_COMPACT) -DME_OPENSSL_VERSION=$(ME_OPENSSL_VERSION) 
 IFLAGS                = -Ibuild\$(CONFIG)\inc
 LDFLAGS               = -nologo -incremental:no -dynamicbase -nxcompat -debug -machine:x64
 LIBPATHS              = "-libpath:$(BUILD)\bin"
@@ -102,7 +370,7 @@ LIBS                  = ws2_32.lib advapi32.lib user32.lib kernel32.lib oldnames
 
 ME_ROOT_PREFIX        = C:
 ME_BASE_PREFIX        = $(ME_ROOT_PREFIX)\Program Files
-ME_APP_PREFIX         = $(ME_BASE_PREFIX)\Embedthis GoAhead Enterprise Edition
+ME_APP_PREFIX         = $(ME_BASE_PREFIX)\Embedthis GoAhead
 ME_VAPP_PREFIX        = $(ME_APP_PREFIX)
 ME_DATA_PREFIX        = $(ME_VAPP_PREFIX)
 ME_STATE_PREFIX       = $(ME_VAPP_PREFIX)
@@ -197,11 +465,21 @@ clean:
 	if exist "build\$(CONFIG)\bin\libgoahead-openssl.lib" del /Q "build\$(CONFIG)\bin\libgoahead-openssl.lib"
 
 #
+#   config.h
+#
+DEPS_1 = $(DEPS_1) src\mbedtls\config.h
+
+build\$(CONFIG)\inc\config.h: $(DEPS_1)
+	@echo ..... [Copy] build\$(CONFIG)\inc\config.h
+	if not exist "build\$(CONFIG)\inc" md "build\$(CONFIG)\inc"
+	copy /Y /B src\mbedtls\config.h+modified build\$(CONFIG)\inc\config.h $(LOG)
+
+#
 #   embedtls.h
 #
-DEPS_1 = $(DEPS_1) src\mbedtls\embedtls.h
+DEPS_2 = $(DEPS_2) src\mbedtls\embedtls.h
 
-build\$(CONFIG)\inc\embedtls.h: $(DEPS_1)
+build\$(CONFIG)\inc\embedtls.h: $(DEPS_2)
 	@echo ..... [Copy] build\$(CONFIG)\inc\embedtls.h
 	if not exist "build\$(CONFIG)\inc" md "build\$(CONFIG)\inc"
 	copy /Y /B src\mbedtls\embedtls.h+modified build\$(CONFIG)\inc\embedtls.h $(LOG)
@@ -210,15 +488,15 @@ build\$(CONFIG)\inc\embedtls.h: $(DEPS_1)
 #   me.h
 #
 
-build\$(CONFIG)\inc\me.h: $(DEPS_2)
+build\$(CONFIG)\inc\me.h: $(DEPS_3)
 
 #
 #   osdep.h
 #
-DEPS_3 = $(DEPS_3) src\osdep\osdep.h
-DEPS_3 = $(DEPS_3) build\$(CONFIG)\inc\me.h
+DEPS_4 = $(DEPS_4) src\osdep\osdep.h
+DEPS_4 = $(DEPS_4) build\$(CONFIG)\inc\me.h
 
-build\$(CONFIG)\inc\osdep.h: $(DEPS_3)
+build\$(CONFIG)\inc\osdep.h: $(DEPS_4)
 	@echo ..... [Copy] build\$(CONFIG)\inc\osdep.h
 	if not exist "build\$(CONFIG)\inc" md "build\$(CONFIG)\inc"
 	copy /Y /B src\osdep\osdep.h+modified build\$(CONFIG)\inc\osdep.h $(LOG)
@@ -226,11 +504,11 @@ build\$(CONFIG)\inc\osdep.h: $(DEPS_3)
 #
 #   goahead.h
 #
-DEPS_4 = $(DEPS_4) src\goahead.h
-DEPS_4 = $(DEPS_4) build\$(CONFIG)\inc\me.h
-DEPS_4 = $(DEPS_4) build\$(CONFIG)\inc\osdep.h
+DEPS_5 = $(DEPS_5) src\goahead.h
+DEPS_5 = $(DEPS_5) build\$(CONFIG)\inc\me.h
+DEPS_5 = $(DEPS_5) build\$(CONFIG)\inc\osdep.h
 
-build\$(CONFIG)\inc\goahead.h: $(DEPS_4)
+build\$(CONFIG)\inc\goahead.h: $(DEPS_5)
 	@echo ..... [Copy] build\$(CONFIG)\inc\goahead.h
 	if not exist "build\$(CONFIG)\inc" md "build\$(CONFIG)\inc"
 	copy /Y /B src\goahead.h+modified build\$(CONFIG)\inc\goahead.h $(LOG)
@@ -238,10 +516,10 @@ build\$(CONFIG)\inc\goahead.h: $(DEPS_4)
 #
 #   js.h
 #
-DEPS_5 = $(DEPS_5) src\js.h
-DEPS_5 = $(DEPS_5) build\$(CONFIG)\inc\goahead.h
+DEPS_6 = $(DEPS_6) src\js.h
+DEPS_6 = $(DEPS_6) build\$(CONFIG)\inc\goahead.h
 
-build\$(CONFIG)\inc\js.h: $(DEPS_5)
+build\$(CONFIG)\inc\js.h: $(DEPS_6)
 	@echo ..... [Copy] build\$(CONFIG)\inc\js.h
 	if not exist "build\$(CONFIG)\inc" md "build\$(CONFIG)\inc"
 	copy /Y /B src\js.h+modified build\$(CONFIG)\inc\js.h $(LOG)
@@ -249,280 +527,309 @@ build\$(CONFIG)\inc\js.h: $(DEPS_5)
 #
 #   mbedtls.h
 #
-DEPS_6 = $(DEPS_6) src\mbedtls\mbedtls.h
+DEPS_7 = $(DEPS_7) src\mbedtls\mbedtls.h
 
-build\$(CONFIG)\inc\mbedtls.h: $(DEPS_6)
+build\$(CONFIG)\inc\mbedtls.h: $(DEPS_7)
 	@echo ..... [Copy] build\$(CONFIG)\inc\mbedtls.h
 	if not exist "build\$(CONFIG)\inc" md "build\$(CONFIG)\inc"
 	copy /Y /B src\mbedtls\mbedtls.h+modified build\$(CONFIG)\inc\mbedtls.h $(LOG)
 
 #
+#   mps_reader.h
+#
+
+build\$(CONFIG)\inc\mps_reader.h: $(DEPS_8)
+
+#
+#   mps_trace.h
+#
+
+build\$(CONFIG)\inc\mps_trace.h: $(DEPS_9)
+
+#
+#   crypto.h
+#
+
+build\$(CONFIG)\inc\psa\crypto.h: $(DEPS_10)
+
+#
+#   ssl_tls13_keys.h
+#
+
+build\$(CONFIG)\inc\ssl_tls13_keys.h: $(DEPS_11)
+
+#
 #   action.obj
 #
-DEPS_7 = $(DEPS_7) build\$(CONFIG)\inc\goahead.h
+DEPS_12 = $(DEPS_12) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\action.obj: \
-    src\action.c $(DEPS_7)
+    src\action.c $(DEPS_12)
 	@echo .. [Compile] build\$(CONFIG)\obj\action.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\action.obj -Fd$(BUILD)\obj\action.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\action.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\action.obj -Fd$(BUILD)\obj\action.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\action.c $(LOG)
 
 #
 #   alloc.obj
 #
-DEPS_8 = $(DEPS_8) build\$(CONFIG)\inc\goahead.h
+DEPS_13 = $(DEPS_13) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\alloc.obj: \
-    src\alloc.c $(DEPS_8)
+    src\alloc.c $(DEPS_13)
 	@echo .. [Compile] build\$(CONFIG)\obj\alloc.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\alloc.obj -Fd$(BUILD)\obj\alloc.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\alloc.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\alloc.obj -Fd$(BUILD)\obj\alloc.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\alloc.c $(LOG)
 
 #
 #   auth.obj
 #
-DEPS_9 = $(DEPS_9) build\$(CONFIG)\inc\goahead.h
+DEPS_14 = $(DEPS_14) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\auth.obj: \
-    src\auth.c $(DEPS_9)
+    src\auth.c $(DEPS_14)
 	@echo .. [Compile] build\$(CONFIG)\obj\auth.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\auth.obj -Fd$(BUILD)\obj\auth.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\auth.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\auth.obj -Fd$(BUILD)\obj\auth.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\auth.c $(LOG)
 
 #
 #   cgi.obj
 #
-DEPS_10 = $(DEPS_10) build\$(CONFIG)\inc\goahead.h
+DEPS_15 = $(DEPS_15) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\cgi.obj: \
-    src\cgi.c $(DEPS_10)
+    src\cgi.c $(DEPS_15)
 	@echo .. [Compile] build\$(CONFIG)\obj\cgi.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\cgi.obj -Fd$(BUILD)\obj\cgi.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\cgi.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\cgi.obj -Fd$(BUILD)\obj\cgi.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\cgi.c $(LOG)
 
 #
 #   cgitest.obj
 #
 
 build\$(CONFIG)\obj\cgitest.obj: \
-    test\cgitest.c $(DEPS_11)
+    test\cgitest.c $(DEPS_16)
 	@echo .. [Compile] build\$(CONFIG)\obj\cgitest.obj
 	"$(CC)" -c -Fo$(BUILD)\obj\cgitest.obj -Fd$(BUILD)\obj\cgitest.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) test\cgitest.c $(LOG)
 
 #
 #   crypt.obj
 #
-DEPS_12 = $(DEPS_12) build\$(CONFIG)\inc\goahead.h
+DEPS_17 = $(DEPS_17) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\crypt.obj: \
-    src\crypt.c $(DEPS_12)
+    src\crypt.c $(DEPS_17)
 	@echo .. [Compile] build\$(CONFIG)\obj\crypt.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\crypt.obj -Fd$(BUILD)\obj\crypt.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\crypt.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\crypt.obj -Fd$(BUILD)\obj\crypt.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\crypt.c $(LOG)
 
 #
 #   file.obj
 #
-DEPS_13 = $(DEPS_13) build\$(CONFIG)\inc\goahead.h
+DEPS_18 = $(DEPS_18) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\file.obj: \
-    src\file.c $(DEPS_13)
+    src\file.c $(DEPS_18)
 	@echo .. [Compile] build\$(CONFIG)\obj\file.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\file.obj -Fd$(BUILD)\obj\file.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\file.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\file.obj -Fd$(BUILD)\obj\file.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\file.c $(LOG)
 
 #
 #   fs.obj
 #
-DEPS_14 = $(DEPS_14) build\$(CONFIG)\inc\goahead.h
+DEPS_19 = $(DEPS_19) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\fs.obj: \
-    src\fs.c $(DEPS_14)
+    src\fs.c $(DEPS_19)
 	@echo .. [Compile] build\$(CONFIG)\obj\fs.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\fs.obj -Fd$(BUILD)\obj\fs.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\fs.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\fs.obj -Fd$(BUILD)\obj\fs.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\fs.c $(LOG)
 
 #
 #   goahead-mbedtls.obj
 #
-DEPS_15 = $(DEPS_15) build\$(CONFIG)\inc\goahead.h
+DEPS_20 = $(DEPS_20) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\goahead-mbedtls.obj: \
-    src\goahead-mbedtls\goahead-mbedtls.c $(DEPS_15)
+    src\goahead-mbedtls\goahead-mbedtls.c $(DEPS_20)
 	@echo .. [Compile] build\$(CONFIG)\obj\goahead-mbedtls.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\goahead-mbedtls.obj -Fd$(BUILD)\obj\goahead-mbedtls.pdb -nologo -GR- -Zi -Od -MDd $(DFLAGS) -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) src\goahead-mbedtls\goahead-mbedtls.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\goahead-mbedtls.obj -Fd$(BUILD)\obj\goahead-mbedtls.pdb -nologo -GR- -Zi -Od -MDd $(DFLAGS) -D_FILE_OFFSET_BITS=64 $(IFLAGS) src\goahead-mbedtls\goahead-mbedtls.c $(LOG)
 
 #
 #   goahead-openssl.obj
 #
-DEPS_16 = $(DEPS_16) build\$(CONFIG)\inc\goahead.h
+DEPS_21 = $(DEPS_21) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\goahead-openssl.obj: \
-    src\goahead-openssl\goahead-openssl.c $(DEPS_16)
+    src\goahead-openssl\goahead-openssl.c $(DEPS_21)
 	@echo .. [Compile] build\$(CONFIG)\obj\goahead-openssl.obj
 	"$(CC)" -c -Fo$(BUILD)\obj\goahead-openssl.obj -Fd$(BUILD)\obj\goahead-openssl.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) "-I$(BUILD)\inc" "-I$(ME_COM_OPENSSL_PATH)\inc32" src\goahead-openssl\goahead-openssl.c $(LOG)
 
 #
 #   goahead.obj
 #
-DEPS_17 = $(DEPS_17) build\$(CONFIG)\inc\goahead.h
+DEPS_22 = $(DEPS_22) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\goahead.obj: \
-    src\goahead.c $(DEPS_17)
+    src\goahead.c $(DEPS_22)
 	@echo .. [Compile] build\$(CONFIG)\obj\goahead.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\goahead.obj -Fd$(BUILD)\obj\goahead.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\goahead.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\goahead.obj -Fd$(BUILD)\obj\goahead.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\goahead.c $(LOG)
 
 #
 #   gopass.obj
 #
-DEPS_18 = $(DEPS_18) build\$(CONFIG)\inc\goahead.h
+DEPS_23 = $(DEPS_23) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\gopass.obj: \
-    src\utils\gopass.c $(DEPS_18)
+    src\utils\gopass.c $(DEPS_23)
 	@echo .. [Compile] build\$(CONFIG)\obj\gopass.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\gopass.obj -Fd$(BUILD)\obj\gopass.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\utils\gopass.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\gopass.obj -Fd$(BUILD)\obj\gopass.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\utils\gopass.c $(LOG)
 
 #
 #   http.obj
 #
-DEPS_19 = $(DEPS_19) build\$(CONFIG)\inc\goahead.h
+DEPS_24 = $(DEPS_24) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\http.obj: \
-    src\http.c $(DEPS_19)
+    src\http.c $(DEPS_24)
 	@echo .. [Compile] build\$(CONFIG)\obj\http.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\http.obj -Fd$(BUILD)\obj\http.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\http.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\http.obj -Fd$(BUILD)\obj\http.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\http.c $(LOG)
 
 #
 #   js.obj
 #
-DEPS_20 = $(DEPS_20) build\$(CONFIG)\inc\js.h
+DEPS_25 = $(DEPS_25) build\$(CONFIG)\inc\js.h
 
 build\$(CONFIG)\obj\js.obj: \
-    src\js.c $(DEPS_20)
+    src\js.c $(DEPS_25)
 	@echo .. [Compile] build\$(CONFIG)\obj\js.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\js.obj -Fd$(BUILD)\obj\js.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\js.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\js.obj -Fd$(BUILD)\obj\js.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\js.c $(LOG)
 
 #
 #   jst.obj
 #
-DEPS_21 = $(DEPS_21) build\$(CONFIG)\inc\goahead.h
-DEPS_21 = $(DEPS_21) build\$(CONFIG)\inc\js.h
+DEPS_26 = $(DEPS_26) build\$(CONFIG)\inc\goahead.h
+DEPS_26 = $(DEPS_26) build\$(CONFIG)\inc\js.h
 
 build\$(CONFIG)\obj\jst.obj: \
-    src\jst.c $(DEPS_21)
+    src\jst.c $(DEPS_26)
 	@echo .. [Compile] build\$(CONFIG)\obj\jst.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\jst.obj -Fd$(BUILD)\obj\jst.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\jst.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\jst.obj -Fd$(BUILD)\obj\jst.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\jst.c $(LOG)
 
 #
 #   mbedtls.h
 #
 
-src\mbedtls\mbedtls.h: $(DEPS_22)
+src\mbedtls\mbedtls.h: $(DEPS_27)
 
 #
 #   mbedtls.obj
 #
-DEPS_23 = $(DEPS_23) src\mbedtls\mbedtls.h
+DEPS_28 = $(DEPS_28) src\mbedtls\mbedtls.h
+DEPS_28 = $(DEPS_28) build\$(CONFIG)\inc\psa\crypto.h
+DEPS_28 = $(DEPS_28) build\$(CONFIG)\inc\mps_reader.h
+DEPS_28 = $(DEPS_28) build\$(CONFIG)\inc\mps_trace.h
+DEPS_28 = $(DEPS_28) build\$(CONFIG)\inc\ssl_tls13_keys.h
 
 build\$(CONFIG)\obj\mbedtls.obj: \
-    src\mbedtls\mbedtls.c $(DEPS_23)
+    src\mbedtls\mbedtls.c $(DEPS_28)
 	@echo .. [Compile] build\$(CONFIG)\obj\mbedtls.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\mbedtls.obj -Fd$(BUILD)\obj\mbedtls.pdb -nologo -GR- -Zi -Od -MDd $(DFLAGS) -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) src\mbedtls\mbedtls.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\mbedtls.obj -Fd$(BUILD)\obj\mbedtls.pdb -nologo -GR- -Zi -Od -MDd $(DFLAGS) $(IFLAGS) src\mbedtls\mbedtls.c $(LOG)
 
 #
 #   options.obj
 #
-DEPS_24 = $(DEPS_24) build\$(CONFIG)\inc\goahead.h
+DEPS_29 = $(DEPS_29) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\options.obj: \
-    src\options.c $(DEPS_24)
+    src\options.c $(DEPS_29)
 	@echo .. [Compile] build\$(CONFIG)\obj\options.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\options.obj -Fd$(BUILD)\obj\options.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\options.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\options.obj -Fd$(BUILD)\obj\options.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\options.c $(LOG)
 
 #
 #   osdep.obj
 #
-DEPS_25 = $(DEPS_25) build\$(CONFIG)\inc\goahead.h
+DEPS_30 = $(DEPS_30) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\osdep.obj: \
-    src\osdep.c $(DEPS_25)
+    src\osdep.c $(DEPS_30)
 	@echo .. [Compile] build\$(CONFIG)\obj\osdep.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\osdep.obj -Fd$(BUILD)\obj\osdep.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\osdep.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\osdep.obj -Fd$(BUILD)\obj\osdep.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\osdep.c $(LOG)
 
 #
 #   rom.obj
 #
-DEPS_26 = $(DEPS_26) build\$(CONFIG)\inc\goahead.h
+DEPS_31 = $(DEPS_31) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\rom.obj: \
-    src\rom.c $(DEPS_26)
+    src\rom.c $(DEPS_31)
 	@echo .. [Compile] build\$(CONFIG)\obj\rom.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\rom.obj -Fd$(BUILD)\obj\rom.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\rom.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\rom.obj -Fd$(BUILD)\obj\rom.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\rom.c $(LOG)
 
 #
 #   route.obj
 #
-DEPS_27 = $(DEPS_27) build\$(CONFIG)\inc\goahead.h
+DEPS_32 = $(DEPS_32) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\route.obj: \
-    src\route.c $(DEPS_27)
+    src\route.c $(DEPS_32)
 	@echo .. [Compile] build\$(CONFIG)\obj\route.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\route.obj -Fd$(BUILD)\obj\route.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\route.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\route.obj -Fd$(BUILD)\obj\route.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\route.c $(LOG)
 
 #
 #   runtime.obj
 #
-DEPS_28 = $(DEPS_28) build\$(CONFIG)\inc\goahead.h
+DEPS_33 = $(DEPS_33) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\runtime.obj: \
-    src\runtime.c $(DEPS_28)
+    src\runtime.c $(DEPS_33)
 	@echo .. [Compile] build\$(CONFIG)\obj\runtime.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\runtime.obj -Fd$(BUILD)\obj\runtime.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\runtime.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\runtime.obj -Fd$(BUILD)\obj\runtime.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\runtime.c $(LOG)
 
 #
 #   socket.obj
 #
-DEPS_29 = $(DEPS_29) build\$(CONFIG)\inc\goahead.h
+DEPS_34 = $(DEPS_34) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\socket.obj: \
-    src\socket.c $(DEPS_29)
+    src\socket.c $(DEPS_34)
 	@echo .. [Compile] build\$(CONFIG)\obj\socket.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\socket.obj -Fd$(BUILD)\obj\socket.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\socket.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\socket.obj -Fd$(BUILD)\obj\socket.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\socket.c $(LOG)
 
 #
 #   test.obj
 #
-DEPS_30 = $(DEPS_30) build\$(CONFIG)\inc\goahead.h
-DEPS_30 = $(DEPS_30) build\$(CONFIG)\inc\js.h
+DEPS_35 = $(DEPS_35) build\$(CONFIG)\inc\goahead.h
+DEPS_35 = $(DEPS_35) build\$(CONFIG)\inc\js.h
 
 build\$(CONFIG)\obj\test.obj: \
-    test\test.c $(DEPS_30)
+    test\test.c $(DEPS_35)
 	@echo .. [Compile] build\$(CONFIG)\obj\test.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\test.obj -Fd$(BUILD)\obj\test.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" test\test.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\test.obj -Fd$(BUILD)\obj\test.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" test\test.c $(LOG)
 
 #
 #   time.obj
 #
-DEPS_31 = $(DEPS_31) build\$(CONFIG)\inc\goahead.h
+DEPS_36 = $(DEPS_36) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\time.obj: \
-    src\time.c $(DEPS_31)
+    src\time.c $(DEPS_36)
 	@echo .. [Compile] build\$(CONFIG)\obj\time.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\time.obj -Fd$(BUILD)\obj\time.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\time.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\time.obj -Fd$(BUILD)\obj\time.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\time.c $(LOG)
 
 #
 #   upload.obj
 #
-DEPS_32 = $(DEPS_32) build\$(CONFIG)\inc\goahead.h
+DEPS_37 = $(DEPS_37) build\$(CONFIG)\inc\goahead.h
 
 build\$(CONFIG)\obj\upload.obj: \
-    src\upload.c $(DEPS_32)
+    src\upload.c $(DEPS_37)
 	@echo .. [Compile] build\$(CONFIG)\obj\upload.obj
-	"$(CC)" -c -Fo$(BUILD)\obj\upload.obj -Fd$(BUILD)\obj\upload.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -DMBEDTLS_USER_CONFIG_FILE=\"embedtls.h\" $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\upload.c $(LOG)
+	"$(CC)" -c -Fo$(BUILD)\obj\upload.obj -Fd$(BUILD)\obj\upload.pdb $(CFLAGS) $(DFLAGS) -DME_COM_OPENSSL_PATH=$(ME_COM_OPENSSL_PATH) -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 $(IFLAGS) "-I$(ME_COM_OPENSSL_PATH)\inc32" src\upload.c $(LOG)
 
 !IF "$(ME_COM_MBEDTLS)" == "1"
 #
 #   libmbedtls
 #
-DEPS_33 = $(DEPS_33) build\$(CONFIG)\inc\osdep.h
-DEPS_33 = $(DEPS_33) build\$(CONFIG)\inc\embedtls.h
-DEPS_33 = $(DEPS_33) build\$(CONFIG)\inc\mbedtls.h
-DEPS_33 = $(DEPS_33) build\$(CONFIG)\obj\mbedtls.obj
+DEPS_38 = $(DEPS_38) build\$(CONFIG)\inc\osdep.h
+DEPS_38 = $(DEPS_38) build\$(CONFIG)\inc\config.h
+DEPS_38 = $(DEPS_38) build\$(CONFIG)\inc\embedtls.h
+DEPS_38 = $(DEPS_38) build\$(CONFIG)\inc\mbedtls.h
+DEPS_38 = $(DEPS_38) build\$(CONFIG)\obj\mbedtls.obj
 
-build\$(CONFIG)\bin\libmbedtls.lib: $(DEPS_33)
+build\$(CONFIG)\bin\libmbedtls.lib: $(DEPS_38)
 	@echo ..... [Link] build\$(CONFIG)\bin\libmbedtls.lib
 	"$(AR)" -nologo -out:$(BUILD)\bin\libmbedtls.lib "$(BUILD)\obj\mbedtls.obj" $(LOG)
 !ENDIF
@@ -531,10 +838,10 @@ build\$(CONFIG)\bin\libmbedtls.lib: $(DEPS_33)
 #
 #   libgoahead-mbedtls
 #
-DEPS_34 = $(DEPS_34) build\$(CONFIG)\bin\libmbedtls.lib
-DEPS_34 = $(DEPS_34) build\$(CONFIG)\obj\goahead-mbedtls.obj
+DEPS_39 = $(DEPS_39) build\$(CONFIG)\bin\libmbedtls.lib
+DEPS_39 = $(DEPS_39) build\$(CONFIG)\obj\goahead-mbedtls.obj
 
-build\$(CONFIG)\bin\libgoahead-mbedtls.lib: $(DEPS_34)
+build\$(CONFIG)\bin\libgoahead-mbedtls.lib: $(DEPS_39)
 	@echo ..... [Link] build\$(CONFIG)\bin\libgoahead-mbedtls.lib
 	"$(AR)" -nologo -out:$(BUILD)\bin\libgoahead-mbedtls.lib "$(BUILD)\obj\goahead-mbedtls.obj" $(LOG)
 !ENDIF
@@ -543,9 +850,9 @@ build\$(CONFIG)\bin\libgoahead-mbedtls.lib: $(DEPS_34)
 #
 #   libgoahead-openssl
 #
-DEPS_35 = $(DEPS_35) build\$(CONFIG)\obj\goahead-openssl.obj
+DEPS_40 = $(DEPS_40) build\$(CONFIG)\obj\goahead-openssl.obj
 
-build\$(CONFIG)\bin\libgoahead-openssl.lib: $(DEPS_35)
+build\$(CONFIG)\bin\libgoahead-openssl.lib: $(DEPS_40)
 	@echo ..... [Link] build\$(CONFIG)\bin\libgoahead-openssl.lib
 	"$(AR)" -nologo -out:$(BUILD)\bin\libgoahead-openssl.lib "$(BUILD)\obj\goahead-openssl.obj" $(LOG)
 !ENDIF
@@ -553,83 +860,83 @@ build\$(CONFIG)\bin\libgoahead-openssl.lib: $(DEPS_35)
 #
 #   libgo
 #
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\inc\osdep.h
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\inc\osdep.h
 !IF "$(ME_COM_MBEDTLS)" == "1"
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\bin\libgoahead-mbedtls.lib
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\bin\libgoahead-mbedtls.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\bin\libgoahead-openssl.lib
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\bin\libgoahead-openssl.lib
 !ENDIF
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\inc\goahead.h
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\inc\js.h
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\action.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\alloc.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\auth.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\cgi.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\crypt.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\file.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\fs.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\http.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\js.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\jst.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\options.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\osdep.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\rom.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\route.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\runtime.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\socket.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\time.obj
-DEPS_36 = $(DEPS_36) build\$(CONFIG)\obj\upload.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\inc\goahead.h
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\inc\js.h
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\action.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\alloc.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\auth.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\cgi.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\crypt.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\file.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\fs.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\http.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\js.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\jst.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\options.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\osdep.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\rom.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\route.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\runtime.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\socket.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\time.obj
+DEPS_41 = $(DEPS_41) build\$(CONFIG)\obj\upload.obj
 
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_36 = $(LIBS_36) libmbedtls.lib
+LIBS_41 = $(LIBS_41) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_36 = $(LIBS_36) libgoahead-mbedtls.lib
+LIBS_41 = $(LIBS_41) libgoahead-mbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_36 = $(LIBS_36) libmbedtls.lib
+LIBS_41 = $(LIBS_41) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_36 = $(LIBS_36) libgoahead-openssl.lib
+LIBS_41 = $(LIBS_41) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_36 = $(LIBS_36) gdi32.lib
-LIBPATHS_36 = $(LIBPATHS_36) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_41 = $(LIBS_41) gdi32.lib
+LIBPATHS_41 = $(LIBPATHS_41) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_36 = $(LIBS_36) libeay32.lib
-LIBPATHS_36 = $(LIBPATHS_36) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_41 = $(LIBS_41) libeay32.lib
+LIBPATHS_41 = $(LIBPATHS_41) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_36 = $(LIBS_36) ssleay32.lib
-LIBPATHS_36 = $(LIBPATHS_36) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_41 = $(LIBS_41) ssleay32.lib
+LIBPATHS_41 = $(LIBPATHS_41) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_36 = $(LIBS_36) libgoahead-openssl.lib
+LIBS_41 = $(LIBS_41) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_36 = $(LIBS_36) libgoahead-mbedtls.lib
+LIBS_41 = $(LIBS_41) libgoahead-mbedtls.lib
 !ENDIF
 
-build\$(CONFIG)\bin\libgo.dll: $(DEPS_36)
+build\$(CONFIG)\bin\libgo.dll: $(DEPS_41)
 	@echo ..... [Link] build\$(CONFIG)\bin\libgo.dll
-	"$(LD)" -dll -out:$(BUILD)\bin\libgo.dll -entry:_DllMainCRTStartup $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\action.obj" "$(BUILD)\obj\alloc.obj" "$(BUILD)\obj\auth.obj" "$(BUILD)\obj\cgi.obj" "$(BUILD)\obj\crypt.obj" "$(BUILD)\obj\file.obj" "$(BUILD)\obj\fs.obj" "$(BUILD)\obj\http.obj" "$(BUILD)\obj\js.obj" "$(BUILD)\obj\jst.obj" "$(BUILD)\obj\options.obj" "$(BUILD)\obj\osdep.obj" "$(BUILD)\obj\rom.obj" "$(BUILD)\obj\route.obj" "$(BUILD)\obj\runtime.obj" "$(BUILD)\obj\socket.obj" "$(BUILD)\obj\time.obj" "$(BUILD)\obj\upload.obj" $(LIBPATHS_36) $(LIBS_36) $(LIBS)  $(LOG)
+	"$(LD)" -dll -out:$(BUILD)\bin\libgo.dll -entry:_DllMainCRTStartup $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\action.obj" "$(BUILD)\obj\alloc.obj" "$(BUILD)\obj\auth.obj" "$(BUILD)\obj\cgi.obj" "$(BUILD)\obj\crypt.obj" "$(BUILD)\obj\file.obj" "$(BUILD)\obj\fs.obj" "$(BUILD)\obj\http.obj" "$(BUILD)\obj\js.obj" "$(BUILD)\obj\jst.obj" "$(BUILD)\obj\options.obj" "$(BUILD)\obj\osdep.obj" "$(BUILD)\obj\rom.obj" "$(BUILD)\obj\route.obj" "$(BUILD)\obj\runtime.obj" "$(BUILD)\obj\socket.obj" "$(BUILD)\obj\time.obj" "$(BUILD)\obj\upload.obj" $(LIBPATHS_41) $(LIBS_41) $(LIBS)  $(LOG)
 
 #
 #   install-certs
 #
-DEPS_37 = $(DEPS_37) src\certs\samples\ca.crt
-DEPS_37 = $(DEPS_37) src\certs\samples\ca.key
-DEPS_37 = $(DEPS_37) src\certs\samples\ec.crt
-DEPS_37 = $(DEPS_37) src\certs\samples\ec.key
-DEPS_37 = $(DEPS_37) src\certs\samples\roots.crt
-DEPS_37 = $(DEPS_37) src\certs\samples\self.crt
-DEPS_37 = $(DEPS_37) src\certs\samples\self.key
-DEPS_37 = $(DEPS_37) src\certs\samples\test.crt
-DEPS_37 = $(DEPS_37) src\certs\samples\test.key
+DEPS_42 = $(DEPS_42) src\certs\samples\ca.crt
+DEPS_42 = $(DEPS_42) src\certs\samples\ca.key
+DEPS_42 = $(DEPS_42) src\certs\samples\ec.crt
+DEPS_42 = $(DEPS_42) src\certs\samples\ec.key
+DEPS_42 = $(DEPS_42) src\certs\samples\roots.crt
+DEPS_42 = $(DEPS_42) src\certs\samples\self.crt
+DEPS_42 = $(DEPS_42) src\certs\samples\self.key
+DEPS_42 = $(DEPS_42) src\certs\samples\test.crt
+DEPS_42 = $(DEPS_42) src\certs\samples\test.key
 
-build\$(CONFIG)\.install-certs-modified: $(DEPS_37)
+build\$(CONFIG)\.install-certs-modified: $(DEPS_42)
 	@echo ..... [Copy] build\$(CONFIG)\bin
 	if not exist "build\$(CONFIG)\bin" md "build\$(CONFIG)\bin"
 	copy /Y /B src\certs\samples\ca.crt+modified build\$(CONFIG)\bin\ca.crt $(LOG)
@@ -646,154 +953,156 @@ build\$(CONFIG)\.install-certs-modified: $(DEPS_37)
 #
 #   goahead
 #
-DEPS_38 = $(DEPS_38) build\$(CONFIG)\bin\libgo.dll
-DEPS_38 = $(DEPS_38) build\$(CONFIG)\.install-certs-modified
-DEPS_38 = $(DEPS_38) build\$(CONFIG)\inc\goahead.h
-DEPS_38 = $(DEPS_38) build\$(CONFIG)\inc\js.h
-DEPS_38 = $(DEPS_38) build\$(CONFIG)\obj\goahead.obj
+DEPS_43 = $(DEPS_43) build\$(CONFIG)\bin\libgo.dll
+DEPS_43 = $(DEPS_43) build\$(CONFIG)\.install-certs-modified
+DEPS_43 = $(DEPS_43) build\$(CONFIG)\inc\goahead.h
+DEPS_43 = $(DEPS_43) build\$(CONFIG)\inc\js.h
+DEPS_43 = $(DEPS_43) build\$(CONFIG)\obj\goahead.obj
 
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_38 = $(LIBS_38) libmbedtls.lib
+LIBS_43 = $(LIBS_43) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_38 = $(LIBS_38) libgoahead-mbedtls.lib
+LIBS_43 = $(LIBS_43) libgoahead-mbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_38 = $(LIBS_38) libmbedtls.lib
+LIBS_43 = $(LIBS_43) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_38 = $(LIBS_38) libgoahead-openssl.lib
+LIBS_43 = $(LIBS_43) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_38 = $(LIBS_38) gdi32.lib
-LIBPATHS_38 = $(LIBPATHS_38) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_43 = $(LIBS_43) gdi32.lib
+LIBPATHS_43 = $(LIBPATHS_43) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_38 = $(LIBS_38) libeay32.lib
-LIBPATHS_38 = $(LIBPATHS_38) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_43 = $(LIBS_43) libeay32.lib
+LIBPATHS_43 = $(LIBPATHS_43) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_38 = $(LIBS_38) ssleay32.lib
-LIBPATHS_38 = $(LIBPATHS_38) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_43 = $(LIBS_43) ssleay32.lib
+LIBPATHS_43 = $(LIBPATHS_43) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
-LIBS_38 = $(LIBS_38) libgo.lib
+LIBS_43 = $(LIBS_43) libgo.lib
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_38 = $(LIBS_38) libgoahead-openssl.lib
+LIBS_43 = $(LIBS_43) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_38 = $(LIBS_38) libgoahead-mbedtls.lib
+LIBS_43 = $(LIBS_43) libgoahead-mbedtls.lib
 !ENDIF
 
-build\$(CONFIG)\bin\goahead.exe: $(DEPS_38)
+build\$(CONFIG)\bin\goahead.exe: $(DEPS_43)
 	@echo ..... [Link] build\$(CONFIG)\bin\goahead.exe
-	"$(LD)" -nologo -out:$(BUILD)\bin\goahead.exe -entry:mainCRTStartup -subsystem:console $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\goahead.obj" $(LIBPATHS_38) $(LIBS_38) $(LIBS)  $(LOG)
+	"$(LD)" -nologo -out:$(BUILD)\bin\goahead.exe -entry:mainCRTStartup -subsystem:console $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\goahead.obj" $(LIBPATHS_43) $(LIBS_43) $(LIBS)  $(LOG)
 
 #
 #   goahead-test
 #
-DEPS_39 = $(DEPS_39) build\$(CONFIG)\bin\libgo.dll
-DEPS_39 = $(DEPS_39) build\$(CONFIG)\.install-certs-modified
-DEPS_39 = $(DEPS_39) build\$(CONFIG)\obj\test.obj
+DEPS_44 = $(DEPS_44) build\$(CONFIG)\bin\libgo.dll
+DEPS_44 = $(DEPS_44) build\$(CONFIG)\.install-certs-modified
+DEPS_44 = $(DEPS_44) build\$(CONFIG)\obj\test.obj
 
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_39 = $(LIBS_39) libmbedtls.lib
+LIBS_44 = $(LIBS_44) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_39 = $(LIBS_39) libgoahead-mbedtls.lib
+LIBS_44 = $(LIBS_44) libgoahead-mbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_39 = $(LIBS_39) libmbedtls.lib
+LIBS_44 = $(LIBS_44) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_39 = $(LIBS_39) libgoahead-openssl.lib
+LIBS_44 = $(LIBS_44) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_39 = $(LIBS_39) gdi32.lib
-LIBPATHS_39 = $(LIBPATHS_39) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_44 = $(LIBS_44) gdi32.lib
+LIBPATHS_44 = $(LIBPATHS_44) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_39 = $(LIBS_39) libeay32.lib
-LIBPATHS_39 = $(LIBPATHS_39) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_44 = $(LIBS_44) libeay32.lib
+LIBPATHS_44 = $(LIBPATHS_44) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_39 = $(LIBS_39) ssleay32.lib
-LIBPATHS_39 = $(LIBPATHS_39) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_44 = $(LIBS_44) ssleay32.lib
+LIBPATHS_44 = $(LIBPATHS_44) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
-LIBS_39 = $(LIBS_39) libgo.lib
+LIBS_44 = $(LIBS_44) libgo.lib
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_39 = $(LIBS_39) libgoahead-openssl.lib
+LIBS_44 = $(LIBS_44) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_39 = $(LIBS_39) libgoahead-mbedtls.lib
+LIBS_44 = $(LIBS_44) libgoahead-mbedtls.lib
 !ENDIF
 
-build\$(CONFIG)\bin\goahead-test.exe: $(DEPS_39)
+build\$(CONFIG)\bin\goahead-test.exe: $(DEPS_44)
 	@echo ..... [Link] build\$(CONFIG)\bin\goahead-test.exe
-	"$(LD)" -nologo -out:$(BUILD)\bin\goahead-test.exe -entry:mainCRTStartup -subsystem:console $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\test.obj" $(LIBPATHS_39) $(LIBS_39) $(LIBS)  $(LOG)
+	"$(LD)" -nologo -out:$(BUILD)\bin\goahead-test.exe -entry:mainCRTStartup -subsystem:console $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\test.obj" $(LIBPATHS_44) $(LIBS_44) $(LIBS)  $(LOG)
 
 #
 #   gopass
 #
-DEPS_40 = $(DEPS_40) build\$(CONFIG)\bin\libgo.dll
-DEPS_40 = $(DEPS_40) build\$(CONFIG)\inc\goahead.h
-DEPS_40 = $(DEPS_40) build\$(CONFIG)\inc\js.h
-DEPS_40 = $(DEPS_40) build\$(CONFIG)\obj\gopass.obj
+DEPS_45 = $(DEPS_45) build\$(CONFIG)\bin\libgo.dll
+DEPS_45 = $(DEPS_45) build\$(CONFIG)\inc\goahead.h
+DEPS_45 = $(DEPS_45) build\$(CONFIG)\inc\js.h
+DEPS_45 = $(DEPS_45) build\$(CONFIG)\obj\gopass.obj
 
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_40 = $(LIBS_40) libmbedtls.lib
+LIBS_45 = $(LIBS_45) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_40 = $(LIBS_40) libgoahead-mbedtls.lib
+LIBS_45 = $(LIBS_45) libgoahead-mbedtls.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_40 = $(LIBS_40) libmbedtls.lib
+LIBS_45 = $(LIBS_45) libmbedtls.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_40 = $(LIBS_40) libgoahead-openssl.lib
+LIBS_45 = $(LIBS_45) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_40 = $(LIBS_40) gdi32.lib
-LIBPATHS_40 = $(LIBPATHS_40) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_45 = $(LIBS_45) gdi32.lib
+LIBPATHS_45 = $(LIBPATHS_45) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_40 = $(LIBS_40) libeay32.lib
-LIBPATHS_40 = $(LIBPATHS_40) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_45 = $(LIBS_45) libeay32.lib
+LIBPATHS_45 = $(LIBPATHS_45) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_40 = $(LIBS_40) ssleay32.lib
-LIBPATHS_40 = $(LIBPATHS_40) -libpath:$(ME_COM_OPENSSL_PATH)/out32
+LIBS_45 = $(LIBS_45) ssleay32.lib
+LIBPATHS_45 = $(LIBPATHS_45) -libpath:$(ME_COM_OPENSSL_PATH)/out32
 !ENDIF
-LIBS_40 = $(LIBS_40) libgo.lib
+LIBS_45 = $(LIBS_45) libgo.lib
 !IF "$(ME_COM_OPENSSL)" == "1"
-LIBS_40 = $(LIBS_40) libgoahead-openssl.lib
+LIBS_45 = $(LIBS_45) libgoahead-openssl.lib
 !ENDIF
 !IF "$(ME_COM_MBEDTLS)" == "1"
-LIBS_40 = $(LIBS_40) libgoahead-mbedtls.lib
+LIBS_45 = $(LIBS_45) libgoahead-mbedtls.lib
 !ENDIF
 
-build\$(CONFIG)\bin\gopass.exe: $(DEPS_40)
+build\$(CONFIG)\bin\gopass.exe: $(DEPS_45)
 	@echo ..... [Link] build\$(CONFIG)\bin\gopass.exe
-	"$(LD)" -nologo -out:$(BUILD)\bin\gopass.exe -entry:mainCRTStartup -subsystem:console $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\gopass.obj" $(LIBPATHS_40) $(LIBS_40) $(LIBS)  $(LOG)
+	"$(LD)" -nologo -out:$(BUILD)\bin\gopass.exe -entry:mainCRTStartup -subsystem:console $(LDFLAGS) $(LIBPATHS)  "$(BUILD)\obj\gopass.obj" $(LIBPATHS_45) $(LIBS_45) $(LIBS)  $(LOG)
 
 #
 #   stop
 #
 
-stop: $(DEPS_41)
+stop: $(DEPS_46)
 #  Omit build script stop
 
 #
 #   installBinary
 #
 
-installBinary: $(DEPS_42)
+installBinary: $(DEPS_47)
 	if not exist "$(ME_VAPP_PREFIX)\man\man1" md "$(ME_VAPP_PREFIX)\man\man1"
 	if not exist "$(ME_VAPP_PREFIX)\bin" md "$(ME_VAPP_PREFIX)\bin"
 	copy /Y /B build\$(CONFIG)\bin\goahead.exe+modified "$(ME_VAPP_PREFIX)\bin\goahead.exe" $(LOG)
 	if not exist "$(ME_VAPP_PREFIX)\bin" md "$(ME_VAPP_PREFIX)\bin"
 	copy /Y /B build\$(CONFIG)\bin\roots.crt+modified "$(ME_VAPP_PREFIX)\bin\roots.crt" $(LOG)
 	if not exist "$(ME_VAPP_PREFIX)" md "$(ME_VAPP_PREFIX)"
-	copy /Y /B build\$(CONFIG)\bin\self.*+modified "$(ME_VAPP_PREFIX)\self.*" $(LOG)
+	copy /Y /B build\$(CONFIG)\bin\self.crt+modified "$(ME_VAPP_PREFIX)\self.crt" $(LOG)
+	if not exist "$(ME_BASE_PREFIX)" md "$(ME_BASE_PREFIX)"
+	copy /Y /B build\$(CONFIG)\bin\self.key+modified "$(ME_VAPP_PREFIX)" $(LOG)
 	if not exist "$(ME_VAPP_PREFIX)\web" md "$(ME_VAPP_PREFIX)\web"
 	copy /Y /B src\web\index.html+modified "$(ME_VAPP_PREFIX)\web\index.html" $(LOG)
 	copy /Y /B src\web\favicon.ico+modified "$(ME_VAPP_PREFIX)\web\favicon.ico" $(LOG)
@@ -807,24 +1116,24 @@ installBinary: $(DEPS_42)
 #   start
 #
 
-start: $(DEPS_43)
+start: $(DEPS_48)
 #  Omit build script start
 
 #
 #   install
 #
-DEPS_44 = $(DEPS_44) stop
-DEPS_44 = $(DEPS_44) installBinary
-DEPS_44 = $(DEPS_44) start
+DEPS_49 = $(DEPS_49) stop
+DEPS_49 = $(DEPS_49) installBinary
+DEPS_49 = $(DEPS_49) start
 
-install: $(DEPS_44)
+install: $(DEPS_49)
 #  Omit build script install
 
 #
 #   installPrep
 #
 
-installPrep: $(DEPS_45)
+installPrep: $(DEPS_50)
 	if [ "`id -u`" != 0 ]
 	then echo "Must run as root. Rerun with sudo."
 	exit 255
@@ -833,16 +1142,16 @@ installPrep: $(DEPS_45)
 #
 #   uninstall
 #
-DEPS_46 = $(DEPS_46) stop
+DEPS_51 = $(DEPS_51) stop
 
-uninstall: $(DEPS_46)
+uninstall: $(DEPS_51)
 #  Omit build script uninstall
 
 #
 #   uninstallBinary
 #
 
-uninstallBinary: $(DEPS_47)
+uninstallBinary: $(DEPS_52)
 	if exist "$(ME_VAPP_PREFIX)\web" rd /Q /S "$(ME_VAPP_PREFIX)\web"
 	if exist "$(ME_VAPP_PREFIX)" rd /Q /S "$(ME_VAPP_PREFIX)"
 	if exist "$(ME_VAPP_PREFIX)\bin" rd /Q "$(ME_VAPP_PREFIX)\bin"
@@ -855,6 +1164,6 @@ uninstallBinary: $(DEPS_47)
 #   version
 #
 
-version: $(DEPS_48)
+version: $(DEPS_53)
 	echo $(VERSION)
 
